@@ -1,0 +1,76 @@
+body {
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    background-color: #F1F1F1;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+img.mount_hua_logo {
+    height: 56px;
+    width: 67px;
+
+}
+
+h1.mount {
+    font-size: 25px;
+    font-weight: normal;
+}
+
+h1.hua_hotel {
+    font-size: 25px;
+    font-weight: normal;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    background-color: #F1F1F1;
+}
+
+.top_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top_nav a {
+    float: left;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+
+.top_nav a.active {
+    color: #FF5F68;
+}
+
+.parent_nav_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #AFAFAF;
+}
+
+button.logout {
+    font-family: 'Rubik', sans-serif;
+    background-color: #F1F1F1;
+    border-style: none;
+}
+
+.side_nav {
+    width: 90px;
+}
+
+button.logout:hover {
+    cursor: pointer;
+}
