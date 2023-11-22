@@ -61,7 +61,10 @@ require_once 'includes/signup_view.inc.php';
     </div>
 
     <?php
-    check_signup_erros();
+
+    $signupView = new signup_view();
+    $signupView->check_signup_errors();
+
     ?>
 </body>
 

@@ -60,6 +60,8 @@
         </div>
     </div>
 
+    
+
     <footer>
         <div class="footer_left">
             <h1 class="mount">MOUNT </h1>

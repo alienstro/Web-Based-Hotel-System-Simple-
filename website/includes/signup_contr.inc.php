@@ -1,41 +1,48 @@
 <?php
 
-// Controller - Functions and conditions etc...
+declare(strict_types=1);
 
-declare(strict_types=1); 
+class signup_contr {
+    private $pdo;
+    private $role;
+    private $email;
+    private $pwd;
+    private $first_name;
+    private $last_name;
 
-function is_input_empty(string $email, string $pwd, string $first_name, string $last_name) { // Checks if input is empty || string - Less error in case of wrong data type sent
-    if (empty($email) || empty($pwd) || empty($first_name) || empty($last_name)) {
-        return true;
-    } else {
-        return false;
+    public function __construct($pdo, $role, $email, $pwd, $first_name, $last_name) {
+        $this->pdo = $pdo;
+        $this->role = $role;
+        $this->email = $email;
+        $this->pwd = $pwd;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
     }
-}
 
-function is_email_invalid(string $email) { // Checks if the email is valid
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // Validate if it's valid email
-        return true;
-    } else {
-        return false;
+    // Checks if there's an empty input
+    public function is_input_empty() {
+        return empty($this->email) || empty($this->pwd) || empty($this->first_name) || empty($this->last_name);
     }
-}
 
-function is_email_registered(object $pdo, string $email) { // Checks if email already registered
-    if (get_email($pdo, $email)) { // Check if there's duplicate
-        return true;
-    } else { // Not taken
-        return false;
+    // Checks if email is valid
+    public function is_email_invalid() {
+        return !filter_var($this->email, FILTER_VALIDATE_EMAIL);
     }
-}
 
-function is_password_valid(string $pwd) { // Checks if password is more than 8 characters
-    if(strlen($pwd) < 8) {
-        return true;
-    } else {
-        return false;
+    // Checks if email has duplicate
+    public function is_email_registered() {
+        $signup_model = new signup_model($this->pdo, $this->role, $this->email, $this->pwd, $this->first_name, $this->last_name);
+        return $signup_model->getEmail($this->email);
     }
-}
 
-function create_user(object $pdo, string $role, string $email, string $pwd, string $first_name, string $last_name) { // Sends data to db
-    set_user($pdo, $role, $email, $pwd, $first_name, $last_name);
+    // Checks if password has more than 8 character
+    public function is_password_valid() {
+        return strlen($this->pwd) < 8;
+    }
+
+    // Insert user info to db
+    public function create_user() {
+        $signup_model = new signup_model($this->pdo, $this->role, $this->email, $this->pwd, $this->first_name, $this->last_name);
+        $signup_model->setUser();
+    }
 }

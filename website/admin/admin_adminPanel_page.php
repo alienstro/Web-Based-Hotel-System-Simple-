@@ -36,6 +36,41 @@
         </div>
     </nav>
 
+    <div class="table_container my-5">
+        <h2>Room Card</h2>
+        <a href="/admin/admin_addRoom_page.php" class="new_room_button" role="button">Add Room</a>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>No. of Persons</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <?php
+            
+            
+            
+            ?>
+            <tbody>
+                <td>Single Room</td>
+                <td>PHP1500</td>
+                <td>2</td>
+                <td>10</td>
+                <td>A perfect blend of tranquility and modern convenience.</td>
+                <td>
+                    <a href="/admin/admin_editRoom.php" class="edit_button">Edit</a>
+                    <a href="/admin/admin_deleteRoom.php" class="edit_button">Delete</a>
+                </td>
+            </tbody>
+        </table>
+    </div>
+
 
 
 

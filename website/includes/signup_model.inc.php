@@ -1,35 +1,51 @@
 <?php
 
-// Model - Takes care of only querying the database and getting, submitting, updating, deleting data
-
 declare(strict_types=1); // Throw error if you pass wrong data type
 
-function get_email(object $pdo, string $email) {
-    $query = "SELECT email FROM users WHERE email = :email;";
+class signup_model extends Dbh{
+    private $pdo;
+    private $role;
+    private $email;
+    private $pwd;
+    private $first_name;
+    private $last_name;
 
-    $stmt = $pdo->prepare($query); // Prevents SQL injection attack
-    $stmt->bindParam(":email", $email);
-    $stmt->execute(); // Executes query
+    public function __construct($pdo, $role, $email, $pwd, $first_name, $last_name) {
+        $this->pdo = $pdo;
+        $this->role = $role;
+        $this->email = $email;
+        $this->pwd = $pwd;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+    }
 
-    $result = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch - Getting the first result
-    return $result;
+    public function getEmail() {
+        $query = "SELECT email FROM users WHERE email = :email;";
 
-}
+        
+        $stmt = $this->connect()->prepare($query);  // Prevents SQL injection attack
+        $stmt->bindParam(":email", $this->email);
+        $stmt->execute(); // Executes query
 
-function set_user(object $pdo, string $role, string $email, string $pwd, string $first_name, string $last_name) {
-    $query = "INSERT INTO users (role, email, pwd, first_name, last_name) VALUES (:role, :email, :pwd, :first_name, :last_name);";
-    
-    $options = [
-        'cost' => 12 // The higher the cost, the harder to brute force
-    ];
+        $result = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch - Getting the first result
+        return $result; 
+    }
 
-    $hashed_pwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+    public function setUser() {
+        $query = "INSERT INTO users (role, email, pwd, first_name, last_name) VALUES (:role, :email, :pwd, :first_name, :last_name);";
+        
+        $options = [
+            'cost' => 12 // The higher the cost, the harder to brute force
+        ];
 
-    $stmt = $pdo->prepare($query); // Prevents SQL injection attack
-    $stmt->bindParam(":role", $role); 
-    $stmt->bindParam(":email", $email);
-    $stmt->bindParam(":pwd", $hashed_pwd);
-    $stmt->bindParam(":first_name", $first_name);
-    $stmt->bindParam(":last_name", $last_name);
-    $stmt->execute();
+        $hashed_pwd = password_hash($this->pwd, PASSWORD_BCRYPT, $options);
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":role", $this->role); 
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":pwd", $hashed_pwd);
+        $stmt->bindParam(":first_name", $this->first_name);
+        $stmt->bindParam(":last_name", $this->last_name);
+        $stmt->execute();
+    }
 }

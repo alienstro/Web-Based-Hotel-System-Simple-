@@ -1,20 +1,19 @@
 <?php
 
-// View - Shows information inside the website
+class signup_view {
+    // If there's error, it will print the error
+    public function check_signup_errors() {
+        if (isset($_SESSION['errors_signup'])) {
+            $errors = $_SESSION['errors_signup'];
 
-declare(strict_types=1); 
+            foreach ($errors as $error) {
+                echo '<div class=signup_form_error><p>' . $error . '</p></div>';
+            }
 
-function check_signup_erros() { // Echo out error message if there's one
-    if (isset($_SESSION['errors_signup'])) {
-        $errors = $_SESSION['errors_signup'];
-
-        foreach ($errors as $error) {
-            echo '<div class=signup_form_error><p">' . $error . '</p></div>';
+            unset($_SESSION['errors_signup']);
+        } else if (isset($_GET["signup"]) && $_GET["signup"] === "success") {
+            echo '<div class=signup_form_success><p>Sign Up Success!</p></div>';
         }
-
-        unset($_SESSION['errors_signup']); // Removes errors_signup for security purposes
-    } else if (isset($_GET["signup"]) && $_GET["signup"] === "success") { // Echo out success if no errors
-        echo '<div class=signup_form_success><p>Sign Up Success!</p></div>';
     }
 }
 

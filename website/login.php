@@ -22,7 +22,7 @@ require_once 'includes/login_view.inc.php';
     <div class="all">
 
         <div class="logo">
-            <h1 class="mount">MOUNT  </h1>
+            <h1 class="mount">MOUNT </h1>
             <img src="picture/mounthua.webp" alt="Mount Hua Logo">
             <h1 class="hua_hotel"> HUA HOTEL</h1>
         </div>
@@ -50,11 +50,12 @@ require_once 'includes/login_view.inc.php';
         </div>
     </div>
 
-<?php 
+    <?php
 
-check_login_erros();
-
-?>
+    $login_view = new Login_view();
+    $login_view->check_login_erros();
+    
+    ?>
 
 </body>
 

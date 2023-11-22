@@ -1,17 +1,24 @@
 <?php
 
-$dsn = "mysql:host=localhost;dbname=hoteldatabase";
-$dbusername = "root";
-$dbpassword = "";
+class Dbh
+{
 
-try {
+    private $dsn = "mysql:host=localhost;dbname=hoteldatabase";
+    private $dbusername = "root";
+    private $dbpassword = "";
 
-    $pdo = new PDO($dsn, $dbusername, $dbpassword);
+    protected function connect()
+    {
+        try {
 
+            $pdo = new PDO($this->dsn, $this->dbusername, $this->dbpassword);
 
-    // Throw exception when there's error
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Throw exception when there's error
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-} catch (PDOException $e) {
-    echo "Connection Failed: " . $e->getMessage();
+            return $pdo;
+        } catch (PDOException $e) {
+            echo "Connection Failed: " . $e->getMessage();
+        }
+    }
 }

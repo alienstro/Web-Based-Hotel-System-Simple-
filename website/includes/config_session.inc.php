@@ -29,26 +29,29 @@ if (isset($_SESSION["user_id"])) { // Checks if user logged in the website
         regenerate_session_id();
     } else { // Update session ID after 30 mins
         $interval = 60 * 30;
-        if (time() - $_SESSION["last_regeneration"] >= $interval) { 
+        if (time() - $_SESSION["last_regeneration"] >= $interval) {
             regenerate_session_id();
         }
     }
 }
 
-function regenerate_session_id() { // Regenerate session ID for user that has NOT logged in
+
+function regenerate_session_id()
+{ // Regenerate session ID for user that has NOT logged in
 
     session_regenerate_id(true); // Regenerates session ID to make more secure.
     $_SESSION["last_regeneration"] = time();
 }
 
-function regenerate_session_id_loggedin() { // Regenerate session ID for user that has logged in
+function regenerate_session_id_loggedin()
+{ // Regenerate session ID for user that has logged in
 
     session_regenerate_id(true); // Regenerates session ID to make more secure.
 
-    $userID = $_SESSION["user_id"]; 
+    $userID = $_SESSION["user_id"];
     $newSessionID = session_create_id(); // Creates new session ID
     $sessionID = $newSessionID . "_" . $userID; // Append sessionID with userID 
-    session_id($sessionID); 
+    session_id($sessionID);
 
     $_SESSION["last_regeneration"] = time(); // Stores time
 }
