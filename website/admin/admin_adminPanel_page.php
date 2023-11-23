@@ -1,3 +1,8 @@
+<?php
+require_once 'includes/admin_contr.inc.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../homePage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,14 +42,14 @@
         </div>
     </nav>
 
-    <div class="table_container my-5">
-        <h2>Room Card</h2>
-        <a href="/admin/admin_addRoom_page.php" class="new_room_button" role="button">Add Room</a>
+    <div class="table_container container my-5">
+        <h2>Rooms</h2>
+        <a href="./admin_addRoom_page.php" class="new_room_button btn btn-primary" role="button">Add Room</a>
         <br>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Type</th>
                     <th>Price</th>
                     <th>No. of Persons</th>
                     <th>Quantity</th>
@@ -52,21 +58,15 @@
                 </tr>
             </thead>
 
-            <?php
-            
-            
-            
-            ?>
+
             <tbody>
-                <td>Single Room</td>
-                <td>PHP1500</td>
-                <td>2</td>
-                <td>10</td>
-                <td>A perfect blend of tranquility and modern convenience.</td>
-                <td>
-                    <a href="/admin/admin_editRoom.php" class="edit_button">Edit</a>
-                    <a href="/admin/admin_deleteRoom.php" class="edit_button">Delete</a>
-                </td>
+                <?php
+                    $admin_contr = new admin_contr();
+                    $admin_contr->print_all();
+
+
+                ?>
+                
             </tbody>
         </table>
     </div>
