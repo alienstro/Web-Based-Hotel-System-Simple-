@@ -1,7 +1,7 @@
 body {
-    font-family: 'Rubik', sans-serif;
-    margin: 0;
-    background-color: #F1F1F1;
+    font-family: 'Rubik', sans-serif !important;
+    margin: 0 !important;
+    background-color: #F1F1F1 !important;
 }
 
 .logo {
@@ -9,6 +9,8 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 70.50px;
+    width: 288.531px;
 
 }
 
@@ -21,11 +23,14 @@ img.mount_hua_logo {
 h1.mount {
     font-size: 25px;
     font-weight: normal;
+    margin: 20.75px 0;
 }
 
 h1.hua_hotel {
     font-size: 25px;
     font-weight: normal;
+    margin: 20.75px 0;
+
 }
 
 nav {
@@ -33,12 +38,14 @@ nav {
     top: 0;
     background-color: #F1F1F1;
     z-index: 1000;
+    height: 115.5px;
 }
 
 .top_nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 42px;
 }
 
 .top_nav a {
@@ -55,17 +62,19 @@ nav {
 }
 
 .parent_nav_top {
-    display: flex;
+    display: flex; 
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #AFAFAF;
+    height: 72.5px;
 }
 
 button.logout {
     font-family: 'Rubik', sans-serif;
     background-color: #F1F1F1;
     border-style: none;
+    font-size: 13.33px;
 }
 
 .side_nav {
@@ -170,5 +179,9 @@ footer {
     flex-direction: row;
     margin-left: 5%;
     margin-bottom: 20px;
+}
+
+.persons {
+    white-space: nowrap;
 }
 
