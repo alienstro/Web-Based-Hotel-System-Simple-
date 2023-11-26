@@ -2,6 +2,7 @@
 
 require_once 'config_session.inc.php';
 require_once 'admin_model.inc.php';
+require_once 'admin_contr.inc.php';
 
 class admin_view
 {
@@ -16,10 +17,18 @@ class admin_view
 
     public function show_room_data()
     {
-        if (isset($_SESSION['errors'])) {
-            echo "<td colspan='8'> {$_SESSION['errors']} </td>";
+        $admin_model = new admin_model();
+        $admin_contr = new admin_contr();
 
-            unset($_SESSION['errors']);
+        $result = $admin_model->get_room_data();
+        if ($admin_contr->is_room_data_available($result)) {
+            $_SESSION["no_data"] = "No records found!";
+        }
+
+        if (isset($_SESSION['no_data'])) {
+            echo "<td colspan='8'> {$_SESSION['no_data']} </td>";
+
+            unset($_SESSION['no_data']);
         } else {
 
             $admin_model = new admin_model();
@@ -46,5 +55,3 @@ class admin_view
         }
     }
 }
-
-

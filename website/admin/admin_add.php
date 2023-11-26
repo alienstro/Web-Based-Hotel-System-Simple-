@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label>Persons</label>
+                                <label>No. of Persons</label>
                                 <input type="text" name="persons" class="form-control" />
                             </div>
 

@@ -81,7 +81,7 @@ require_once '../admin/includes/admin_view.inc.php';
                                     <?php
 
                                     $admin_view->show_room_data();
-                                    
+
                                     ?>
                                 </tr>
                             </tbody>
