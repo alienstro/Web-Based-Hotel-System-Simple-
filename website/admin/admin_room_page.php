@@ -57,9 +57,6 @@ require_once './includes/admin_view.inc.php';
     
     ?>
 
-
-
-
     <footer>
         <div class="footer_left">
             <h1 class="mount">MOUNT </h1>

@@ -19,7 +19,7 @@ if (isset($_POST['unbook_room_btn'])) {
 
 
 
-        header('Location: ../admin_room_page.php');
+        header('Location: ../admin_bookings_page.php');
 
         $pdo = null;
         $stmt = null;

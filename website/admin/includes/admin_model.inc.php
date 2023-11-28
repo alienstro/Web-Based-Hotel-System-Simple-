@@ -5,6 +5,7 @@ require_once 'dbh.inc.php';
 class admin_model extends Dbh
 {
 
+    // Inserting room and its attributes to db
     public function set_room($is_Available, $type, $price, $persons, $quantity, $description, $image_name_new)
     {
         $query = "INSERT INTO room (is_Available, type, price, persons, quantity, description, image) VALUES (:is_Available, :type, :price, :persons, :quantity, :description, :image);";
@@ -20,6 +21,7 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Editing room and its attributes to db
     public function edit_room($room_id, $type, $price, $persons, $quantity, $description, $image_name_new)
     {
         $query = "UPDATE room SET type = :type, price = :price, persons = :persons, quantity = :quantity, description = :description, image = :image WHERE room_id = :room_id;";
@@ -37,6 +39,7 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Decreasing room quantity when user booked
     public function decrease_room_quantity($room_id, $quantity)
     {
         $query = "UPDATE room SET quantity = :quantity - 1 WHERE room_id = :room_id;";
@@ -47,6 +50,7 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Increasing room quantity when user unbooked
     public function increase_room_quantity($room_id, $quantity)
     {
         $query = "UPDATE room SET quantity = :quantity + 1 WHERE room_id = :room_id;";
@@ -57,6 +61,7 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Inserting the room_id and user_id to "users_room" for booking duplicates
     public function insert_room_id($rooms_id, $user_id)
     {
         $query = "INSERT INTO user_rooms (users_id, rooms_id) VALUES (:users_id, :rooms_id);";
@@ -67,6 +72,7 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Removing the room_id and user_id from "users_room"
     public function remove_room_id($rooms_id, $user_id)
     {
         $query = "DELETE FROM user_rooms WHERE rooms_id = :rooms_id AND users_id = :users_id;";
@@ -77,23 +83,13 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
+    // Getting the user's booked room data 
     public function get_users_room_data()
     {
+        $user_rooms_id_arrays = $this->get_user_room_id();
 
-        // $user_id = $_SESSION['user_id'];
-
-        // $query = "SELECT * FROM user_rooms WHERE users_id = :users_id;";
-
-        // $stmt = $this->connect()->prepare($query);
-        // $stmt->bindParam(":users_id", $user_id);
-        // $stmt->execute();
-
-        // $user_rooms_id = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $user_rooms_ids = $this->get_user_room_id();
-
-        foreach ($user_rooms_ids as $user_rooms_id) {
-            $rooms_id = $user_rooms_id['rooms_id'];
+        foreach ($user_rooms_id_arrays as $user_rooms_id_array) {
+            $rooms_id = $user_rooms_id_array['rooms_id'];
 
             $query = "SELECT * FROM room WHERE room_id = :rooms_id";
     
@@ -105,10 +101,9 @@ class admin_model extends Dbh
     
             return $result;
         }
-
-        
     }
 
+    // Getting the user's id from user_rooms table
     public function get_user_room_id()
     {
         $user_id = $_SESSION['user_id'];
@@ -119,11 +114,16 @@ class admin_model extends Dbh
         $stmt->bindParam(":users_id", $user_id);
         $stmt->execute();
 
-        $user_rooms_id = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $user_rooms_id_array = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $user_rooms_id;
+        return $user_rooms_id_array;
     }
 
+    public function get_uniqid_from_usersroom() {
+        
+    }
+
+    // Getting room data from room table
     public function get_room_data()
     {
         $query = "SELECT * FROM room;";
@@ -136,6 +136,7 @@ class admin_model extends Dbh
         return $result;
     }
 
+    // Getting room_id from room table
     public function get_room_id($room_id)
     {
         $query = "SELECT * FROM room WHERE room_id = :room_id LIMIT 1;";
@@ -154,6 +155,7 @@ class admin_model extends Dbh
         return $result;
     }
 
+    // Deleting room from admin panel
     public function delete_room($room_id)
     {
 

@@ -140,13 +140,14 @@ class admin_view
         } else {
             $result = $admin_model->get_users_room_data($user_id);
 
+            // <input type='hidden' name='user_rooms_id' value='" . $row['id'] . "' />
             foreach ($result as $row) {
 
                 echo "
 
                 <form action='./includes/admin_unbooking.inc.php' method='POST'>
                     <div class='room_container'>
-                    <input type='hidden' name='user_rooms_id' value='" . $row['id'] . "' />
+        
                     <input type='hidden' name='quantity' value='" . $row['quantity'] . "' />
                     <input type='hidden' name='room_id' value='" . $row['room_id'] . "' />
                         <div class='column_img'>
@@ -167,7 +168,6 @@ class admin_view
                         </div>
                     </div>
                 </form>";
-                
             }
         }
     }
