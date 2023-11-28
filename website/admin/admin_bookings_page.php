@@ -1,3 +1,9 @@
+<?php 
+
+require_once './includes/admin_view.inc.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +42,13 @@
         </div>
     </nav>
 
-
+    <?php 
+    
+    $admin_view = new admin_view();
+    $admin_view->show_your_bookings();
+    
+    
+    ?>
 
 
 </body>

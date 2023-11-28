@@ -72,6 +72,7 @@ require_once '../admin/includes/admin_view.inc.php';
                                     <th class="persons">No. Of Persons</th>
                                     <th>Quantity</th>
                                     <th>Description</th>
+                                    <th>Image</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>

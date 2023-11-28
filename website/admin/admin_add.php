@@ -1,3 +1,9 @@
+<?php 
+
+require_once '../admin/includes/admin_view.inc.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +49,13 @@
         <div class="row">
             <div class="col-md-12 mt-4">
 
+                <?php
+
+                $admin_view = new admin_view();
+                $admin_view->check_add_errors();
+
+                ?>
+
                 <div class="card">
                     <div class="card-header">
                         <h3>Add Room
@@ -54,7 +67,7 @@
 
 
 
-                        <form action="../admin/includes/admin.inc.php" method="POST">
+                        <form action="../admin/includes/admin.inc.php" method="POST" enctype="multipart/form-data">
 
                             <div class="mb-3">
                                 <label>Type</label>
@@ -80,6 +93,13 @@
                                 <label>Description</label>
                                 <input type="text" name="description" class="form-control" />
                             </div>
+
+                            <div class="mb-3">
+                                <label>Image</label>
+                                <input type="file" name="image" class="form-control" />
+                            </div>
+
+
                             <button type="submit" name="save_room_btn" class="btn btn-primary">Save Room</button>
                         </form>
                     </div>

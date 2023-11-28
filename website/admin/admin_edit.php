@@ -7,13 +7,13 @@
 
 require_once '../admin/includes/dbh.inc.php';
 require_once '../admin/includes/admin_model.inc.php';
+require_once '../admin/includes/admin_view.inc.php';
 
-if(isset($_GET['room_id'])) {
+if (isset($_GET['room_id'])) {
     $room_id = $_GET['room_id'];
 
     $admin_model = new admin_model();
     $result = $admin_model->get_room_id($room_id);
-
 }
 
 ?>
@@ -61,7 +61,14 @@ if(isset($_GET['room_id'])) {
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mt-4">
+            <div class="edit_container col-md-12 mt-4">
+
+                <?php
+
+                $admin_view = new admin_view();
+                $admin_view->check_add_errors();
+
+                ?>
 
                 <div class="card">
                     <div class="card-header">
@@ -70,32 +77,40 @@ if(isset($_GET['room_id'])) {
                         </h3>
                     </div>
                     <div class="card-body">
-                        <form action="../admin/includes/admin_edit.inc.php" method="POST">
+                        <form action="../admin/includes/admin_edit.inc.php" method="POST"  enctype="multipart/form-data">
 
-                            <input type="hidden" name="room_id" value="<?= $result['room_id']; ?>"/>
+                            <input type="hidden" name="room_id" value="<?= $result['room_id']; ?>" />
                             <div class="mb-3">
                                 <label>Type</label>
-                                <input type="text" name="type" value="<?= $result['type']; ?> "class="form-control" />
+                                <input type="text" name="type" value="<?= $result['type']; ?> " class="form-control" />
                             </div>
 
                             <div class="mb-3">
                                 <label>Price</label>
-                                <input type="text" name="price" value="<?= $result['price']; ?> "class="form-control" />
+                                <input type="text" name="price" value="<?= $result['price']; ?> " class="form-control" />
                             </div>
 
                             <div class="mb-3">
-                                <label>Persons</label>
-                                <input type="text" name="persons" value="<?= $result['persons']; ?> "class="form-control" />
+                                <label>No. Of Persons</label>
+                                <input type="text" name="persons" value="<?= $result['persons']; ?> " class="form-control" />
                             </div>
 
                             <div class="mb-3">
                                 <label>Quantity</label>
-                                <input type="text" name="quantity" value="<?= $result['quantity']; ?> "class="form-control" />
+                                <input type="text" name="quantity" value="<?= $result['quantity']; ?> " class="form-control" />
                             </div>
 
                             <div class="mb-3">
                                 <label>Description</label>
-                                <input type="text" name="description" value="<?= $result['description']; ?> "class="form-control" />
+                                <input type="text" name="description" value="<?= $result['description']; ?> " class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label>New Image</label>
+                                <input type="file" name="image" class="form-control" />
+                                <label>Current Image</label><br>
+                                <img class="img_admin" src="../admin/includes/pictures/<?= $result['image']; ?>"><br>
+
                             </div>
                             <button type="submit" name="update_room_btn" class="btn btn-primary">Update Room</button>
                         </form>
