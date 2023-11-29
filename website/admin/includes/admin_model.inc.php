@@ -87,21 +87,24 @@ class admin_model extends Dbh
     public function get_users_room_data()
     {
         $user_rooms_id_arrays = $this->get_user_room_id();
+        $results = []; // Initialize an empty array to store all results
 
         foreach ($user_rooms_id_arrays as $user_rooms_id_array) {
             $rooms_id = $user_rooms_id_array['rooms_id'];
 
             $query = "SELECT * FROM room WHERE room_id = :rooms_id";
-    
+
             $stmt = $this->connect()->prepare($query);
             $stmt->bindParam(":rooms_id", $rooms_id);
             $stmt->execute();
-    
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-            return $result;
+
+            // Merge the fetched results into the results array
+            $results = array_merge($results, $stmt->fetchAll(PDO::FETCH_ASSOC));
         }
+
+        return $results; // Return the complete array after the loop
     }
+
 
     // Getting the user's id from user_rooms table
     public function get_user_room_id()
@@ -119,8 +122,8 @@ class admin_model extends Dbh
         return $user_rooms_id_array;
     }
 
-    public function get_uniqid_from_usersroom() {
-        
+    public function get_uniqid_from_usersroom()
+    {
     }
 
     // Getting room data from room table
