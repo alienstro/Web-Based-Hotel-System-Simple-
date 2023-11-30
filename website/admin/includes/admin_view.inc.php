@@ -55,16 +55,28 @@ class admin_view
             }
         }
     }
+
     public function check_add_errors()
     {
         if (isset($_SESSION['errors_admin_add'])) {
             $admin_errors = $_SESSION['errors_admin_add'];
 
             foreach ($admin_errors as $admin_error)
-                echo "<h5 class='alert alert-success'>" . $admin_error . "</h5>";
+                echo "<h5 class='alert alert-danger'>" . $admin_error . "</h5>";
         }
 
         unset($_SESSION['errors_admin_add']);
+    }
+
+    public function check_room_availability() {
+        if (isset($_SESSION['no_room_available'])) {
+            $room_errors = $_SESSION['no_room_available'];
+
+            foreach ($room_errors as $room_error)
+                echo "<h5 class='room_alert alert alert-danger'>" . $room_error . "</h5>";
+        } 
+
+        unset($_SESSION['no_room_available']);
     }
 
     public function show_room_page()
@@ -140,14 +152,12 @@ class admin_view
         } else {
             $results = $admin_model->get_users_room_data($user_id);
 
-            // <input type='hidden' name='user_rooms_id' value='" . $row['id'] . "' />
             foreach ($results as $row) {
-                
                 echo "
 
                 <form action='./includes/admin_unbooking.inc.php' method='POST'>
                     <div class='room_container'>
-          
+                    <input type='hidden' name='booking_id' value='" . $row['booking_id'] . "' />
                     <input type='hidden' name='quantity' value='" . $row['quantity'] . "' />
                     <input type='hidden' name='room_id' value='" . $row['room_id'] . "' />
                         <div class='column_img'>
@@ -169,6 +179,89 @@ class admin_view
                     </div>
                 </form>";
             }
+        }
+    }
+
+    public function show_room_card1()
+    {
+        $admin_model = new admin_model();
+
+        $room_card_id = 1;
+        $results = $admin_model->get_room_card_data($room_card_id);
+
+
+        foreach ($results as $result) {
+
+            echo "
+        
+            <div class='first_column'>
+                <img src='../admin/includes/pictures/" . $result['image'] . "' alt='' class='rooms_pictures_home'>
+                <p class='room_card_type'> " . $result['type'] . "</p>
+                <p class='room_card_price'>PHP " . $result['price'] . "</p>
+                <p class='room_card_description'>" . $result['description'] . "</p>
+                <a href='./admin_room_page.php'><button class='room_card_button'>DISCOVER MORE</button></a>
+            </div>";
+        }
+    }
+
+    public function show_room_card2()
+    {
+        $admin_model = new admin_model();
+
+        $room_card_id = 2;
+        $results = $admin_model->get_room_card_data($room_card_id);
+
+        foreach ($results as $result) {
+
+            echo "
+        
+            <div class='second_column'>
+                <img src='../admin/includes/pictures/" . $result['image'] . "' alt='' class='rooms_pictures_home'>
+                <p class='room_card_type'> " . $result['type'] . "</p>
+                <p class='room_card_price'>PHP " . $result['price'] . "</p>
+                <p class='room_card_description'>" . $result['description'] . "</p>
+                <a href='./admin_room_page.php'><button class='room_card_button'>DISCOVER MORE</button></a>
+            </div>";
+        }
+    }
+
+
+    public function show_room_card3()
+    {
+        $admin_model = new admin_model();
+
+        $room_card_id = 3;
+        $results = $admin_model->get_room_card_data($room_card_id);
+
+        foreach ($results as $result) {
+
+            echo "
+        
+            <div class='third_column'>
+                <img src='../admin/includes/pictures/" . $result['image'] . "' alt='' class='rooms_pictures_home'>
+                <p class='room_card_type'> " . $result['type'] . "</p>
+                <p class='room_card_price'>PHP " . $result['price'] . "</p>
+                <p class='room_card_description'>" . $result['description'] . "</p>
+                <a href='./admin_room_page.php'><button class='room_card_button'>DISCOVER MORE</button></a>
+            </div>";
+        }
+    }
+
+    public function show_room_card_data()
+    {
+        $admin_model = new admin_model();
+        $result = $admin_model->get_room_card_data_all();
+
+        foreach ($result as $row) {
+            echo "
+                <tr>
+                    <td>" . $row['room_card_id'] . "</td>
+                    <td>" . $row['type'] . "</td>
+                    <td>" . $row['price'] . "</td>
+                    <td>" . $row['description'] . "</td>
+                    <td class='img_td'> <img class='img_admin' src='./includes/pictures/" . $row['image'] . "'></td>
+                    <td><a href='admin_room_card_edit.php?room_card_id={$row['room_card_id']}' class='btn btn-primary'>Edit</a></td> 
+                </tr>";
         }
     }
 }

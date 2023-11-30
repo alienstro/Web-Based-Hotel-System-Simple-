@@ -93,6 +93,44 @@ require_once '../admin/includes/admin_view.inc.php';
         </div>
     </div>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Room Card</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Image</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <?php
+
+                                    $admin_view->show_room_card_data();
+
+                                    ?>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <footer>
         <div class="footer_left">
             <h1 class="mount">MOUNT </h1>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once './includes/admin_view.inc.php';
 
@@ -12,6 +12,7 @@ require_once './includes/admin_view.inc.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../homePage.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,18 +44,32 @@ require_once './includes/admin_view.inc.php';
             <a href="./admin_adminPanel_page.php">ADMIN PANEL</a>
         </div>
     </nav>
+    <?php
 
+
+
+    $admin_view = new admin_view();
+    $admin_view->check_room_availability();
+
+
+    ?>
     <img src="../picture/brown-wooden-lounge.avif" alt="home_page_picture" class="home_page_picture">
+
+
+
 
     <p class="quote_home_page">Find tranquility<br>in our room</p>
 
     <h2>Check out our rooms</h2>
 
-    <?php 
-    
+    <?php
+
+
+
     $admin_view = new admin_view();
+
     $admin_view->show_room_page();
-    
+
     ?>
 
     <footer>
