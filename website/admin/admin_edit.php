@@ -67,6 +67,7 @@ if (isset($_GET['room_id'])) {
 
                 $admin_view = new admin_view();
                 $admin_view->check_add_errors();
+                $admin_view->check_add_message();
 
                 ?>
 
@@ -96,7 +97,11 @@ if (isset($_GET['room_id'])) {
                             </div>
 
                             <div class="mb-3">
-                                <label>Quantity</label>
+                                <label>Intial Quantity = <?= $result['initialQuantity']; ?> </label>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Current Quantity excluding Booked Rooms</label> 
                                 <input type="text" name="quantity" value="<?= $result['quantity']; ?> " class="form-control" />
                             </div>
 
@@ -112,6 +117,7 @@ if (isset($_GET['room_id'])) {
                                 <img class="img_admin" src="../admin/includes/pictures/<?= $result['image']; ?>"><br>
 
                             </div>
+                            <button type="submit" name="remove_all_book_btn" class="remove_all_book btn btn-danger float-end">Remove all booked rooms</button>
                             <button type="submit" name="update_room_btn" class="btn btn-primary">Update Room</button>
                         </form>
                     </div>

@@ -31,7 +31,9 @@ if (isset($_POST['update_room_card_btn'])) {
     //Image Error Handlers
     $admin_errors = [];
 
-    if ($image_error === UPLOAD_ERR_NO_FILE) {
+    if ($admin_contr->no_negative_price($price)) {
+        $admin_errors["negative_price"] = "Invalid input. Price must be 1 or more.";
+    } else if ($image_error === UPLOAD_ERR_NO_FILE) {
         $admin_model = new admin_model();
         $result = $admin_model->get_room_card_id($room_card_id);
 

@@ -64,4 +64,44 @@ class admin_contr
             return false;
         }
     }
+
+    public function no_negative_quantity($quantity) {
+        if($quantity <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function no_negative_price($price) {
+        if($price <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function no_negative_persons($persons) {
+        if($persons <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function is_numeric($price, $persons, $quantity) {
+        if(!is_numeric($quantity) || !is_numeric($price) || !is_numeric($persons)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function check_if_same_quantity($initialQuantitys, $quantitys) {
+        if($initialQuantitys != $quantitys) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
