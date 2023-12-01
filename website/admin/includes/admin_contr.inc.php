@@ -21,6 +21,15 @@ class admin_contr
         }
     }
 
+    public function is_room_card_data_available($room_card_id) 
+    {
+        if (!$room_card_id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function is_ext_allow($image_actual_ext, $allowed)
     {
         if (in_array($image_actual_ext, $allowed)) { // If allowed ext
@@ -45,6 +54,14 @@ class admin_contr
             return true;
         } else {
             return false; // "Your image is too big. Only less than 25mb";
+        }
+    }
+
+    public function check_room_availability($result) {
+        if($result <= 0 ) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

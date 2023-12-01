@@ -8,6 +8,7 @@ require_once 'config_session.inc.php';
 if (isset($_POST['unbook_room_btn'])) {
     $room_id = $_POST['room_id'];
     $quantity = $_POST['quantity'];
+    $booking_id = $_POST['booking_id'];
 
     if (isset($_SESSION["user_id"])) {
         $user_id = $_SESSION['user_id'];
@@ -15,7 +16,7 @@ if (isset($_POST['unbook_room_btn'])) {
         $admin_model = new admin_model();
         $admin_model->increase_room_quantity($room_id, $quantity);
 
-        $admin_model->remove_room_id($room_id, $user_id);
+        $admin_model->remove_booking($booking_id);
 
 
 
