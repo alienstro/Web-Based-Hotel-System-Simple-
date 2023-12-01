@@ -8,13 +8,14 @@ class admin_model extends Dbh
     // Inserting room and its attributes to db
     public function set_room($is_Available, $type, $price, $persons, $quantity, $description, $image_name_new)
     {
-        $query = "INSERT INTO room (is_Available, type, price, persons, quantity, description, image) VALUES (:is_Available, :type, :price, :persons, :quantity, :description, :image);";
+        $query = "INSERT INTO room (is_Available, type, price, persons, initialQuantity, quantity, description, image) VALUES (:is_Available, :type, :price, :persons, :initialQuantity, :quantity, :description, :image);";
 
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":is_Available", $is_Available);
         $stmt->bindParam(":type", $type);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":persons", $persons);
+        $stmt->bindParam(":initialQuantity", $quantity);
         $stmt->bindParam(":quantity", $quantity);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":image", $image_name_new);
@@ -24,7 +25,7 @@ class admin_model extends Dbh
     // Editing room and its attributes to db
     public function edit_room($room_id, $type, $price, $persons, $quantity, $description, $image_name_new)
     {
-        $query = "UPDATE room SET type = :type, price = :price, persons = :persons, quantity = :quantity, description = :description, image = :image WHERE room_id = :room_id;";
+        $query = "UPDATE room SET type = :type, price = :price, persons = :persons, initialQuantity = :initialQuantity, quantity = :quantity, description = :description, image = :image WHERE room_id = :room_id;";
 
 
         $stmt = $this->connect()->prepare($query);
@@ -33,6 +34,7 @@ class admin_model extends Dbh
         $stmt->bindParam(":type", $type);
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":persons", $persons);
+        $stmt->bindParam(":initialQuantity", $quantity);
         $stmt->bindParam(":quantity", $quantity);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":image", $image_name_new);
@@ -57,6 +59,15 @@ class admin_model extends Dbh
 
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":quantity", $quantity);
+        $stmt->bindParam(":room_id", $room_id);
+        $stmt->execute();
+    }
+
+    public function reset_room_quantity($initialQuantitys, $room_id) {
+        $query = "UPDATE room SET quantity = :quantity WHERE room_id = :room_id;";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":quantity", $initialQuantitys);
         $stmt->bindParam(":room_id", $room_id);
         $stmt->execute();
     }
@@ -221,6 +232,14 @@ class admin_model extends Dbh
         $stmt->bindParam(":price", $price);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":image", $image_name_new);
+        $stmt->execute();
+    }
+
+    public function remove_all_book($room_id) {
+        $query = "DELETE FROM user_rooms WHERE rooms_id =:room_id";
+        
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":room_id", $room_id);
         $stmt->execute();
     }
 }

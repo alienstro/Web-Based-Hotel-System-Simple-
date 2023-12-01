@@ -29,11 +29,18 @@ if (isset($_POST['save_room_btn'])) {
 
     $file_destination = null; 
 
-    //Image Error Handlers
+    // Error Handlers
     $admin_errors = [];
- 
-        
-    if (!$admin_contr->checks_image_error($image_error)) {
+
+    if ($admin_contr->no_negative_quantity($quantity)) {
+        $admin_errors["negative_quantity"] = "Invalid input. Quantity must be 1 or more.";
+    } else if ($admin_contr->no_negative_price($price)) {
+        $admin_errors["negative_price"] = "Invalid input. Price must be 1 or more.";
+    } else if ($admin_contr->no_negative_persons($persons)) {
+        $admin_errors["negative_persons"] = "Invalid input. No. of Persons must be 1 or more.";
+    } else if($admin_contr->is_numeric($price, $quantity, $persons)) {
+        $admin_errors["is_numeric"] = "Please ensure that the values for Price, Quantity, and Persons are numeric.";
+    } else if (!$admin_contr->checks_image_error($image_error)) {
         $admin_errors["image_error"] = "There was an error uploading your image";
     } else if (!$admin_contr->is_ext_allow($image_actual_ext, $allowed)) {
         $admin_errors["ext_error"] = "You cannot upload this image type. Only jpg, jpeg, png";

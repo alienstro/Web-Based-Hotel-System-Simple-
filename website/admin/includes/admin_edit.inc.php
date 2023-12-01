@@ -33,7 +33,15 @@ if (isset($_POST['update_room_btn'])) {
     //Image Error Handlers
     $admin_errors = [];
 
-    if ($image_error === UPLOAD_ERR_NO_FILE) {
+    if ($admin_contr->no_negative_quantity($quantity)) {
+        $admin_errors["negative_quantity"] = "Invalid input. Quantity must be 1 or more.";
+    } else if ($admin_contr->no_negative_price($price)) {
+        $admin_errors["negative_price"] = "Invalid input. Price must be 1 or more.";
+    } else if ($admin_contr->no_negative_persons($persons)) {
+        $admin_errors["negative_persons"] = "Invalid input. No. of Persons must be 1 or more.";
+    } else if($admin_contr->is_numeric($price, $quantity, $persons)) {
+        $admin_errors["is_numeric"] = "Please ensure that the values for Price, Quantity, and Persons are numeric.";
+    }else if ($image_error === UPLOAD_ERR_NO_FILE) {
         $admin_model = new admin_model();
         $result = $admin_model->get_room_id($room_id);
 
@@ -52,6 +60,17 @@ if (isset($_POST['update_room_btn'])) {
             $file_destination = './pictures/' . $image_name_new; // Location where you will upload your files.
             move_uploaded_file($image_tmp_name, $file_destination); // Location of your image file.
         }
+    }
+
+    $admin_model = new admin_model();
+    $result = $admin_model->get_room_id($room_id);
+
+    $initialQuantitys = $result['initialQuantity'];
+    $quantitys = $result['quantity'];
+
+    if ($admin_contr->check_if_same_quantity($initialQuantitys, $quantitys)) {
+        $admin_errors["unequal_quantity"] = "Please ensure that all rooms are unbooked.";
+
     }
 
     if ($admin_errors) {
@@ -81,4 +100,22 @@ if (isset($_POST['update_room_btn'])) {
     } catch (PDOException $e) {
         die("Query Failed: " . $e->getMessage());
     }
+}
+
+if (isset($_POST['remove_all_book_btn'])) {
+    $room_id = $_POST['room_id'];
+
+    $admin_model = new admin_model();
+
+    $admin_model->remove_all_book($room_id);
+
+    $admin_model = new admin_model();
+    $result = $admin_model->get_room_id($room_id);
+
+    $initialQuantitys = $result['initialQuantity'];
+
+    $admin_model->reset_room_quantity($initialQuantitys, $room_id);
+
+    header("Location: ../admin_edit.php?room_id=$room_id");
+    $_SESSION['message'] = "Removed All Booked Rooms Successfully";
 }
