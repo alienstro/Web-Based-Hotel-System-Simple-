@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/config_session.inc.php';
 require_once 'includes/signup_view.inc.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +52,12 @@ require_once 'includes/signup_view.inc.php';
                     <label for="password">PASSWORD</label>
                     <br>
                     <input type="password" name="pwd" id="password">
+                </div>
+
+                <div class="label_input">
+                    <label for="password">REPEAT PASSWORD</label>
+                    <br>
+                    <input type="password" name="repeatpwd" id="password">
                 </div>
 
                 <button class="sign_button">SIGN IN</button>

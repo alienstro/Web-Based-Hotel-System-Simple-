@@ -4,6 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Check if user submitting form usi
     $role = 'customer';
     $email = $_POST["email"];
     $pwd = $_POST["pwd"];
+    $repeatpwd = $_POST["repeatpwd"];
     $first_name = $_POST["first_name"];
     $last_name = $_POST["last_name"];
 
@@ -14,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Check if user submitting form usi
         require_once "signup_model.inc.php";
         require_once "signup_contr.inc.php";
 
-        $signupContr = new signup_contr($pdo, $role, $email, $pwd, $first_name, $last_name);
+        $signupContr = new signup_contr($pdo, $role, $email, $pwd, $first_name, $last_name, $repeatpwd);
 
         // Error handlers
         $errors = [];
@@ -27,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") { // Check if user submitting form usi
             $errors["email_registered"] = "Email already used!";
         } else if ($signupContr->is_password_valid($pwd)) { // Checks if password more than 8 characters
             $errors["password_valid"] = "Password must be more than 8 characters!";
+        } else if (!$signupContr->is_password_same($pwd, $repeatpwd)) { // Checks if password is same with re-enter password
+            $errors["wrong_password"] = "The password you've re-enter is not correct!";
         }
 
         require_once 'config_session.inc.php';

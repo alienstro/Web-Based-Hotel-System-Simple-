@@ -7,14 +7,16 @@ class signup_contr {
     private $role;
     private $email;
     private $pwd;
+    private $repeatpwd;
     private $first_name;
     private $last_name;
 
-    public function __construct($pdo, $role, $email, $pwd, $first_name, $last_name) {
+    public function __construct($pdo, $role, $email, $pwd, $repeatpwd, $first_name, $last_name) {
         $this->pdo = $pdo;
         $this->role = $role;
         $this->email = $email;
         $this->pwd = $pwd;
+        $this->repeatpwd = $repeatpwd;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
     }
@@ -44,5 +46,9 @@ class signup_contr {
     public function create_user() {
         $signup_model = new signup_model($this->pdo, $this->role, $this->email, $this->pwd, $this->first_name, $this->last_name);
         $signup_model->setUser();
+    }
+
+    public function is_password_same($pwd, $repeatpwd){
+        return $pwd == $repeatpwd;
     }
 }

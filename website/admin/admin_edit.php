@@ -97,7 +97,7 @@ if (isset($_GET['room_id'])) {
                             </div>
 
                             <div class="mb-3">
-                                <label>Intial Quantity = <?= $result['initialQuantity']; ?> </label>
+                                <label>Intial Quantity: <?= $result['initialQuantity']; ?> </label>
                             </div>
 
                             <div class="mb-3">

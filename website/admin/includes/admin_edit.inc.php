@@ -33,6 +33,7 @@ if (isset($_POST['update_room_btn'])) {
     //Image Error Handlers
     $admin_errors = [];
 
+     
     if ($admin_contr->no_negative_quantity($quantity)) {
         $admin_errors["negative_quantity"] = "Invalid input. Quantity must be 1 or more.";
     } else if ($admin_contr->no_negative_price($price)) {
@@ -41,7 +42,9 @@ if (isset($_POST['update_room_btn'])) {
         $admin_errors["negative_persons"] = "Invalid input. No. of Persons must be 1 or more.";
     } else if($admin_contr->is_numeric($price, $quantity, $persons)) {
         $admin_errors["is_numeric"] = "Please ensure that the values for Price, Quantity, and Persons are numeric.";
-    }else if ($image_error === UPLOAD_ERR_NO_FILE) {
+    } else if($admin_contr->is_input_empty($type, $price, $persons, $quantity, $description)) {
+        $admin_errors["no_input"] = "Please fill up all inputs.";
+    } else if ($image_error === UPLOAD_ERR_NO_FILE) {
         $admin_model = new admin_model();
         $result = $admin_model->get_room_id($room_id);
 

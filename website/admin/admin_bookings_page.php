@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once './includes/admin_view.inc.php';
 
@@ -42,14 +42,13 @@ require_once './includes/admin_view.inc.php';
         </div>
     </nav>
 
-    <?php 
-    
+    <?php
+
     $admin_view = new admin_view();
     $admin_view->show_your_bookings();
-    
-    
-    ?>
 
+
+    ?>
 
 
 </body>

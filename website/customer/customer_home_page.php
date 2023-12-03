@@ -1,3 +1,12 @@
+<?php
+
+require_once '../customer/includes/dbh.inc.php';
+require_once '../customer/includes/customer_model.inc.php';
+require_once '../customer/includes/customer_view.inc.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,21 +52,18 @@
 
     <div class="Threebox_container">
 
-        <div class="first_column">
-            <img src="../picture/singleRoom.avif" alt="" class="rooms_pictures_home">
-            <p>hatdog</p>
-        </div>
 
-        <div class="second_column">
-            <img src="../picture/twinRoom.avif" alt="" class="rooms_pictures_home">
-            <p>hat</p>
-        </div>
+        <?php
 
-        <div class="third_column">
-            <img src="../picture/deluxeRoom.jpg" alt="" class="rooms_pictures_home">
-            <p>ma</p>
-        </div>
-    </div>
+        $customer_view = new customer_view();
+
+        $customer_view->show_room_card1();
+        $customer_view->show_room_card2();
+        $customer_view->show_room_card3();
+
+        ?>
+    </div>";
+
 
     <footer>
         <div class="footer_left">
@@ -70,9 +76,6 @@
             <p>&copy; 2023. All Rights Reserved.</p>
         </div>
     </footer>
-
-
-
 
 
 

@@ -104,4 +104,16 @@ class admin_contr
             return false;
         }
     }
+
+    public function check_if_room_is_booked($result) {
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function is_input_empty($type, $price, $persons, $quantity, $description) {
+        return empty($type) || empty($price) || empty($persons) || empty($quantity) || empty($description);
+    }
 }

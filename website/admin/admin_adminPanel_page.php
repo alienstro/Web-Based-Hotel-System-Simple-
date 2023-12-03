@@ -53,6 +53,7 @@ require_once '../admin/includes/admin_view.inc.php';
 
                 $admin_view = new admin_view();
                 $admin_view->check_add_message();
+                $admin_view->check_add_errors();
 
                 ?>
 
@@ -82,7 +83,7 @@ require_once '../admin/includes/admin_view.inc.php';
                                     <?php
 
                                     $admin_view->show_room_data();
-
+                                    
                                     ?>
                                 </tr>
                             </tbody>

@@ -133,6 +133,18 @@ class admin_model extends Dbh
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get_all_data_roomIDs_from_userRooms($room_id) {
+        $query = "SELECT * FROM user_rooms WHERE rooms_id = :rooms_id;";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":rooms_id", $room_id);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     public function get_uniqid_from_usersroom()
     {
     }

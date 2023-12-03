@@ -1,3 +1,9 @@
+<?php
+
+require_once './includes/customer_view.inc.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +37,18 @@
         <div class="top_nav">
             <a href="./customer_home_page.php">HOME</a>
             <a href="./customer_room_page.php">ROOMS</a>
-            <a href="./customer_bookings_page.php"  class="active">YOUR BOOKINGS</a>
+            <a href="./customer_bookings_page.php" class="active">YOUR BOOKINGS</a>
         </div>
     </nav>
 
+    
+    <?php
 
+    $customer_view = new customer_view();
+    $customer_view->show_your_bookings();
+
+
+    ?>
 
 
 </body>

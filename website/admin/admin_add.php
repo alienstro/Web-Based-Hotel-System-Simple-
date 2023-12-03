@@ -67,7 +67,7 @@ require_once '../admin/includes/admin_view.inc.php';
 
 
 
-                        <form action="../admin/includes/admin.inc.php" method="POST" enctype="multipart/form-data">
+                        <form action="../admin/includes/admin_add.inc.php" method="POST" enctype="multipart/form-data">
 
                             <div class="mb-3">
                                 <label>Type</label>
