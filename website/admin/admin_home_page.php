@@ -3,6 +3,9 @@
 require_once '../admin/includes/dbh.inc.php';
 require_once '../admin/includes/admin_model.inc.php';
 require_once '../admin/includes/admin_view.inc.php';
+require_once '../admin/includes/config_session.inc.php';
+
+
 
 ?>
 
@@ -23,7 +26,17 @@ require_once '../admin/includes/admin_view.inc.php';
 <body>
     <nav>
         <div class="parent_nav_top">
-            <div class="side_nav"></div>
+            <div class="right_side_nav">
+
+            <?php 
+            
+            $admin_view = new admin_view();
+            $admin_view->show_user_first_name();
+            
+            ?>
+
+
+            </div>
 
             <div class="logo">
                 <h1 class="mount">MOUNT </h1>
@@ -42,6 +55,7 @@ require_once '../admin/includes/admin_view.inc.php';
             <a href="./admin_room_page.php">ROOMS</a>
             <a href="./admin_bookings_page.php">YOUR BOOKINGS</a>
             <a href="./admin_adminPanel_page.php">ADMIN PANEL</a>
+            <a href="./admin_bookedrooms_page.php">BOOKED ROOMS</a>
         </div>
     </nav>
 

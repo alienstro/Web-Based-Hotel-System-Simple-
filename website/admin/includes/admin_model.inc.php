@@ -63,7 +63,8 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
-    public function reset_room_quantity($initialQuantitys, $room_id) {
+    public function reset_room_quantity($initialQuantitys, $room_id)
+    {
         $query = "UPDATE room SET quantity = :quantity WHERE room_id = :room_id;";
 
         $stmt = $this->connect()->prepare($query);
@@ -97,7 +98,7 @@ class admin_model extends Dbh
     public function get_users_room_data()
     {
         $user_rooms_id_arrays = $this->get_user_room_id();
-        $results = []; 
+        $results = [];
 
         foreach ($user_rooms_id_arrays as $user_rooms_id_array) {
             $rooms_id = $user_rooms_id_array['rooms_id'];
@@ -133,7 +134,8 @@ class admin_model extends Dbh
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function get_all_data_roomIDs_from_userRooms($room_id) {
+    public function get_all_data_roomIDs_from_userRooms($room_id)
+    {
         $query = "SELECT * FROM user_rooms WHERE rooms_id = :rooms_id;";
 
         $stmt = $this->connect()->prepare($query);
@@ -153,6 +155,23 @@ class admin_model extends Dbh
     public function get_room_data()
     {
         $query = "SELECT * FROM room;";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function get_room_booked_data()
+    {
+        $query = "
+        SELECT users.email, users.user_id, users.first_name, users.last_name, user_rooms.booking_id, room.quantity, room.room_id, room.type, room.price, room.persons
+        FROM users
+        INNER JOIN user_rooms ON users.user_id = user_rooms.users_id
+        INNER JOIN room ON user_rooms.rooms_id = room.room_id;
+        ";
 
         $stmt = $this->connect()->prepare($query);
         $stmt->execute();
@@ -210,7 +229,8 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
-    public function get_room_card_data($room_card_id) {
+    public function get_room_card_data($room_card_id)
+    {
         $query = "SELECT * FROM room_card WHERE room_card_id =:room_card_id;";
 
         $stmt = $this->connect()->prepare($query);
@@ -222,7 +242,8 @@ class admin_model extends Dbh
         return $result;
     }
 
-    public function get_room_card_data_all() {
+    public function get_room_card_data_all()
+    {
         $query = "SELECT * FROM room_card;";
 
         $stmt = $this->connect()->prepare($query);
@@ -247,11 +268,33 @@ class admin_model extends Dbh
         $stmt->execute();
     }
 
-    public function remove_all_book($room_id) {
+    public function remove_all_book($room_id)
+    {
         $query = "DELETE FROM user_rooms WHERE rooms_id =:room_id";
-        
+
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":room_id", $room_id);
+        $stmt->execute();
+    }
+
+    public function get_user_first_name($user_id)
+    {
+        $query = "SELECT * FROM users WHERE user_id = :user_id;";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $result = $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function remove_booked_room_admin($booking_id) {
+        $query = "DELETE FROM user_rooms WHERE booking_id = :booking_id;";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":booking_id", $booking_id);
         $stmt->execute();
     }
 }

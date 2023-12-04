@@ -3,18 +3,20 @@ body {
     margin: 0;
     background-color: #F1F1F1;
     height: 100vh;
-    
-   
+
+
 }
 
 .logo {
+    position: absolute;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 70.50px;
     width: 288.531px;
-
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 img.mount_hua_logo {
@@ -65,7 +67,8 @@ nav {
 }
 
 .parent_nav_top {
-    display: flex; 
+    position: relative;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +118,7 @@ h2 {
     display: flex;
 }
 
-.Threebox_container > * {
+.Threebox_container>* {
     width: calc(100% / 3);
     padding: 1rem;
     margin: 0 auto;
@@ -273,7 +276,8 @@ footer {
 .column_img {
     width: 38%;
     display: flex;
-    align-items: center; /* Aligns items vertically in the center */ 
+    align-items: center;
+    /* Aligns items vertically in the center */
     justify-content: flex-end;
     right: 50%;
 }
@@ -334,8 +338,9 @@ footer {
     height: 250px;
     object-fit: cover;
     margin: 20px;
-    
-} 
+
+
+}
 
 form:nth-of-type(2n) .room_container {
     background-color: #F1F1F1;
@@ -353,5 +358,22 @@ form:nth-of-type(2n) .room_container {
     text-align: center;
 }
 
+.right_side_nav {
+    width: auto;
+    margin-left: 20px;
+}
 
+.right_side_nav_p {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
 
+}
+
+.delete_th {
+    width: auto;
+}
+
+.td_no_data {
+    text-align: center;
+}

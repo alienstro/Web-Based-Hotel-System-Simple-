@@ -26,7 +26,7 @@ class admin_view
         }
 
         if (isset($_SESSION['no_data'])) {
-            echo "<td colspan='9'> {$_SESSION['no_data']} </td>";
+            echo "<td colspan='9' class='td_no_data'> {$_SESSION['no_data']} </td>";
 
             unset($_SESSION['no_data']);
         } else {
@@ -56,6 +56,47 @@ class admin_view
         }
     }
 
+    public function show_booked_room_data()
+    {
+        $admin_model = new admin_model();
+        $admin_contr = new admin_contr();
+
+        $result = $admin_model->get_room_booked_data();
+
+        if ($admin_contr->is_room_data_available($result)) {
+            $_SESSION["no_booked_room"] = "No booked rooms currently!";
+        }
+
+        if (isset($_SESSION['no_booked_room'])) {
+            echo "<td colspan='7' class='td_no_data'> {$_SESSION['no_booked_room']} </td>";
+
+            unset($_SESSION['no_booked_room']);
+        } else {
+            $result = $admin_model->get_room_booked_data();
+
+            foreach ($result as $row) {
+                echo "
+                <tr>
+                    <td>" . $row['first_name'] . "</td>
+                    <td>" . $row['last_name'] . "</td>
+                    <td>" . $row['email'] . "</td>
+                    <td>" . $row['type'] . "</td>
+                    <td>" . $row['persons'] . "</td>
+                    <td>" . $row['price'] . "</td>
+                        <td> 
+                            <form action='../admin/includes/admin_booked_room_delete.inc.php' method='POST'>
+                                <input type='hidden' name='quantity' value='" . $row['quantity'] . "'/>
+                                <input type='hidden' name='room_id' value='" . $row['room_id'] . "'/>
+                                <input type='hidden' name='booking_id' value='" . $row['booking_id'] . "'/>
+                                <button type='submit' name='delete_room_btn' value='" . $row['booking_id'] . "' class='btn btn-danger'>Delete</button>
+                        </form>
+                    </td>
+                </tr> 
+                ";
+            }
+        }
+    }
+
     public function check_add_errors()
     {
         if (isset($_SESSION['errors_admin_add'])) {
@@ -68,13 +109,14 @@ class admin_view
         unset($_SESSION['errors_admin_add']);
     }
 
-    public function check_room_availability() {
+    public function check_room_availability()
+    {
         if (isset($_SESSION['no_room_available'])) {
             $room_errors = $_SESSION['no_room_available'];
 
             foreach ($room_errors as $room_error)
                 echo "<h5 class='room_alert alert alert-danger'>" . $room_error . "</h5>";
-        } 
+        }
 
         unset($_SESSION['no_room_available']);
     }
@@ -263,5 +305,17 @@ class admin_view
                     <td><a href='admin_room_card_edit.php?room_card_id={$row['room_card_id']}' class='btn btn-primary'>Edit</a></td> 
                 </tr>";
         }
+    }
+
+    public function show_user_first_name()
+    {
+        $user_id = $_SESSION['user_id'];
+
+        $admin_model = new admin_model();
+        $result = $admin_model->get_user_first_name($user_id);
+
+        $first_name = $result['first_name'];
+
+        echo "<p class='right_side_nav_p'>Welcome, " . $first_name . "</p>";
     }
 }

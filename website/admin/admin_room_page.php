@@ -42,6 +42,7 @@ require_once './includes/admin_view.inc.php';
             <a href="./admin_room_page.php" class="active">ROOMS</a>
             <a href="./admin_bookings_page.php">YOUR BOOKINGS</a>
             <a href="./admin_adminPanel_page.php">ADMIN PANEL</a>
+            <a href="./admin_bookedrooms_page.php">BOOKED ROOMS</a>
         </div>
     </nav>
     <?php

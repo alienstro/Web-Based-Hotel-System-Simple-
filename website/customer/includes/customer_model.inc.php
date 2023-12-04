@@ -50,7 +50,7 @@ class customer_model extends Dbh
     public function get_users_room_data()
     {
         $user_rooms_id_arrays = $this->get_user_room_id();
-        $results = []; 
+        $results = [];
 
         foreach ($user_rooms_id_arrays as $user_rooms_id_array) {
             $rooms_id = $user_rooms_id_array['rooms_id'];
@@ -118,7 +118,8 @@ class customer_model extends Dbh
         return $result;
     }
 
-    public function get_room_card_data($room_card_id) {
+    public function get_room_card_data($room_card_id)
+    {
         $query = "SELECT * FROM room_card WHERE room_card_id =:room_card_id;";
 
         $stmt = $this->connect()->prepare($query);
@@ -130,6 +131,16 @@ class customer_model extends Dbh
         return $result;
     }
 
+    public function get_user_first_name($user_id)
+    {
+        $query = "SELECT * FROM users WHERE user_id = :user_id;";
 
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+        $result = $stmt->execute();
 
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

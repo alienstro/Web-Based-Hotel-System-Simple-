@@ -41,8 +41,8 @@ require_once '../admin/includes/admin_view.inc.php';
             <a href="./admin_home_page.php">HOME</a>
             <a href="./admin_room_page.php">ROOMS</a>
             <a href="./admin_bookings_page.php">YOUR BOOKINGS</a>
-            <a href="./admin_adminPanel_page.php" class="active">ADMIN PANEL</a>
-            <a href="./admin_bookedrooms_page.php">BOOKED ROOMS</a>
+            <a href="./admin_adminPanel_page.php">ADMIN PANEL</a>
+            <a href="./admin_bookedrooms_page.php" class="active">BOOKED ROOMS</a>
         </div>
     </nav>
 
@@ -60,30 +60,26 @@ require_once '../admin/includes/admin_view.inc.php';
 
                 <div class="card">
                     <div class="card-header">
-                        <h3>Rooms
-                            <a href="../admin/admin_add.php" class="btn btn-primary float-end">Add Room</a>
-                        </h3>
+                        <h3>Booked Rooms</h3>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
                                     <th>Type</th>
-                                    <th>Price</th>
                                     <th class="persons">No. Of Persons</th>
-                                    <th>Quantity</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Price</th>
+                                    <th class="delete_th">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <?php
 
-                                    $admin_view->show_room_data();
+                                    $admin_view->show_booked_room_data();
                                     
                                     ?>
                                 </tr>
@@ -95,43 +91,7 @@ require_once '../admin/includes/admin_view.inc.php';
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-4">
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Room Card</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Type</th>
-                                    <th>Price</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
-                                    <th>Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <?php
-
-                                    $admin_view->show_room_card_data();
-
-                                    ?>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+   
 
     <footer>
         <div class="footer_left">

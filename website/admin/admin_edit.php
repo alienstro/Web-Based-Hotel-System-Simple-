@@ -56,6 +56,7 @@ if (isset($_GET['room_id'])) {
             <a href="./admin_room_page.php">ROOMS</a>
             <a href="./admin_bookings_page.php">YOUR BOOKINGS</a>
             <a href="./admin_adminPanel_page.php" class="active">ADMIN PANEL</a>
+            <a href="./admin_bookedrooms_page.php">BOOKED ROOMS</a>
         </div>
     </nav>
 

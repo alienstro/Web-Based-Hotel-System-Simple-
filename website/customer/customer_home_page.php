@@ -23,7 +23,17 @@ require_once '../customer/includes/customer_view.inc.php';
 <body>
     <nav>
         <div class="parent_nav_top">
-            <div class="side_nav"></div>
+            <div class="right_side_nav">
+
+                <?php
+
+                $customer_view = new customer_view();
+                $customer_view->show_user_first_name();
+
+                ?>
+
+
+            </div>
 
             <div class="logo">
                 <h1 class="mount">MOUNT </h1>

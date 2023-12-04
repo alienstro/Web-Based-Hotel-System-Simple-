@@ -197,4 +197,16 @@ class customer_view
         }
     }
 
+    public function show_user_first_name()
+    {
+        $user_id = $_SESSION['user_id'];
+
+        $customer_model = new customer_model();
+        $result = $customer_model->get_user_first_name($user_id);
+
+        $first_name = $result['first_name'];
+
+        echo "<p class='right_side_nav_p'>Welcome, " . $first_name . "</p>";
+    }
+
 }
