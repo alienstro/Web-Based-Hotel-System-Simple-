@@ -126,9 +126,14 @@ class admin_view
         $admin_model = new admin_model();
         $admin_contr = new admin_contr();
 
-        $result = $admin_model->get_room_data();
-        if ($admin_contr->is_room_data_available($result)) {
-            $_SESSION["no_data"] = "No rooms available at the moment";
+        if (isset($_SESSION["user_id"])) {
+            $result = $admin_model->get_room_data();
+            if ($admin_contr->is_room_data_available($result)) {
+                $_SESSION["no_data"] = "No rooms available at the moment";
+            }
+        } else {
+            header("Location: ../login.php");
+            die();
         }
 
         if (isset($_SESSION['no_data'])) {
@@ -136,8 +141,16 @@ class admin_view
 
             unset($_SESSION['no_data']);
         } else {
-            $admin_model = new admin_model();
-            $result = $admin_model->get_room_data();
+
+            // Check if a search word is set
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $search_word = $_GET['search'];
+                $result = $admin_model->get_room_data_by_search($search_word);
+            } else {
+                $result = $admin_model->get_room_data();
+            }
+
+
 
             foreach ($result as $row) {
                 echo "
@@ -159,7 +172,7 @@ class admin_view
                         <div class='column_btn'>
                             <div class='btn_and_txt'>
                             <p class='column_text_p'>PHP " . $row['price'] . " per night</p>
-                            <button type='submit' name='book_room_btn' class='book_room_btn'>Book now</button>
+                            <button type='submit' name='book_room_btn' class='book_room_btn' >Book now</button>
                             </div>
                         </div>
                     </div>
@@ -176,7 +189,7 @@ class admin_view
         if (isset($_SESSION["user_id"])) {
             $user_id = $_SESSION['user_id'];
         } else {
-            echo "User ID not set in session.";
+            header("Location: ../login.php");
             die();
         }
 
@@ -190,7 +203,6 @@ class admin_view
             echo "<h2> {$_SESSION['no_booking']} </h2>";
 
             unset($_SESSION['no_booking']);
-            die();
         } else {
             $results = $admin_model->get_users_room_data($user_id);
 

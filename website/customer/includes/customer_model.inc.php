@@ -143,4 +143,19 @@ class customer_model extends Dbh
 
         return $result;
     }
+
+    public function get_room_data_by_search($search_word)
+    {
+        $query = "SELECT * FROM room WHERE type LIKE :searchTerm OR persons LIKE :searchTerm;";
+        
+        $stmt = $this->connect()->prepare($query);
+        $search_word = "%" . $search_word . "%";
+        $stmt->bindParam(":searchTerm", $search_word);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        
+    }
+
 }

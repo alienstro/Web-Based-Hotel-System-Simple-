@@ -18,13 +18,14 @@ class customer_view
         unset($_SESSION['errors_customer_add']);
     }
 
-    public function check_room_availability() {
+    public function check_room_availability()
+    {
         if (isset($_SESSION['no_room_available'])) {
             $room_errors = $_SESSION['no_room_available'];
 
             foreach ($room_errors as $room_error)
                 echo "<h5 class='room_alert alert alert-danger'>" . $room_error . "</h5>";
-        } 
+        }
 
         unset($_SESSION['no_room_available']);
     }
@@ -34,9 +35,14 @@ class customer_view
         $customer_model = new customer_model();
         $customer_contr = new customer_contr();
 
-        $result = $customer_model->get_room_data();
-        if ($customer_contr->is_room_data_available($result)) {
-            $_SESSION["no_data"] = "No rooms available at the moment";
+        if (isset($_SESSION["user_id"])) {
+            $result = $customer_model->get_room_data();
+            if ($customer_contr->is_room_data_available($result)) {
+                $_SESSION["no_data"] = "No rooms available at the moment";
+            }
+        } else {
+            header("Location: ../login.php");
+            die();
         }
 
         if (isset($_SESSION['no_data'])) {
@@ -44,8 +50,16 @@ class customer_view
 
             unset($_SESSION['no_data']);
         } else {
-            $customer_model = new customer_model();
-            $result = $customer_model->get_room_data();
+
+            // Check if a search word is set
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $search_word = $_GET['search'];
+                $result = $customer_model->get_room_data_by_search($search_word);
+            } else {
+                $result = $customer_model->get_room_data();
+            }
+
+
 
             foreach ($result as $row) {
                 echo "
@@ -67,7 +81,7 @@ class customer_view
                         <div class='column_btn'>
                             <div class='btn_and_txt'>
                             <p class='column_text_p'>PHP " . $row['price'] . " per night</p>
-                            <button type='submit' name='book_room_btn' class='book_room_btn'>Book now</button>
+                            <button type='submit' name='book_room_btn' class='book_room_btn' >Book now</button>
                             </div>
                         </div>
                     </div>
@@ -75,6 +89,7 @@ class customer_view
             }
         }
     }
+
 
     public function show_your_bookings()
     {
@@ -84,7 +99,7 @@ class customer_view
         if (isset($_SESSION["user_id"])) {
             $user_id = $_SESSION['user_id'];
         } else {
-            echo "User ID not set in session.";
+            header("Location: ../login.php");
             die();
         }
 
@@ -98,7 +113,6 @@ class customer_view
             echo "<h2> {$_SESSION['no_booking']} </h2>";
 
             unset($_SESSION['no_booking']);
-    
         } else {
             $results = $customer_model->get_users_room_data($user_id);
 
@@ -208,5 +222,4 @@ class customer_view
 
         echo "<p class='right_side_nav_p'>Welcome, " . $first_name . "</p>";
     }
-
 }

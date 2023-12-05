@@ -58,7 +58,7 @@ require_once '../admin/includes/admin_view.inc.php';
 
                 ?>
 
-                <div class="card">
+                <div class="booked_card_container card">
                     <div class="card-header">
                         <h3>Booked Rooms</h3>
                     </div>

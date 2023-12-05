@@ -99,7 +99,7 @@ require_once '../admin/includes/admin_view.inc.php';
         <div class="row">
             <div class="col-md-12 mt-4">
 
-                <div class="card">
+                <div class="room_card_container card">
                     <div class="card-header">
                         <h3>Room Card</h3>
                     </div>

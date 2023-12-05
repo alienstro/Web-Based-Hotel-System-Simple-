@@ -1,10 +1,21 @@
-body {
+body{
+    display: flex;
+    flex-direction: column;
     font-family: 'Rubik', sans-serif;
     margin: 0;
     background-color: #F1F1F1;
-    height: 100vh;
+    min-height: 100vh;
+    animation: fadeIn 2s ease;
+}
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
 
+    100% {
+        opacity: 1;
+    }
 }
 
 .logo {
@@ -209,7 +220,7 @@ footer {
     background-color: #3A3A3A;
     width: 100%;
     height: 140px;
-    margin-top: 10%;
+    margin-top: auto;
 
 }
 
@@ -356,6 +367,7 @@ form:nth-of-type(2n) .room_container {
     margin: 1%;
     width: 98%;
     text-align: center;
+    top: 12%;
 }
 
 .right_side_nav {
@@ -376,4 +388,53 @@ form:nth-of-type(2n) .room_container {
 
 .td_no_data {
     text-align: center;
+}
+
+.parent_search_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 20px 20px 20px;
+    width: 440px;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.search_bar {
+    background-color: #DEDEDE;
+    border-style: solid 1px black;
+    width: 240px;
+    height: 40px;
+    margin: 10px;
+    font-size: 16px;
+    font-family: 'Rubik', sans-serif;
+    border-radius: 5px;
+    padding: 0 2.5%;
+}
+
+.search_btn {
+    border-radius: 5px;
+    border-style: none;
+    width: 100px;
+    padding: 10px 0;
+    background-color: #FF5F68;
+    color: white;
+    font-size: 16px;
+
+
+}
+
+.room_card_container {
+    margin-bottom: 40px;
+}
+
+.booked_card_container {
+    margin-bottom: 40px;
 }

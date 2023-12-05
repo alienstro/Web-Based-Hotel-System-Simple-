@@ -26,6 +26,6 @@ if (isset($_POST['unbook_room_btn'])) {
         $stmt = null;
         die();
     } else {
-        echo "User ID not set in session.";
+        header("Location: ../login.php");
     }
 }

@@ -61,6 +61,16 @@ require_once './includes/customer_view.inc.php';
 
     <h2>Check out our rooms</h2>
 
+    <div class="parent_search_container">
+        <div class="search_container">
+            <form action="customer_room_page.php" method="get">
+                <input class="search_bar" type="text" name="search" placeholder="Room type or No. of Pax">
+                <button class="search_btn" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+
     <?php
 
 

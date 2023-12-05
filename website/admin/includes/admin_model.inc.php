@@ -290,11 +290,26 @@ class admin_model extends Dbh
         return $result;
     }
 
-    public function remove_booked_room_admin($booking_id) {
+    public function remove_booked_room_admin($booking_id)
+    {
         $query = "DELETE FROM user_rooms WHERE booking_id = :booking_id;";
 
         $stmt = $this->connect()->prepare($query);
         $stmt->bindParam(":booking_id", $booking_id);
         $stmt->execute();
+    }
+
+    public function get_room_data_by_search($search_word)
+    {
+        $query = "SELECT * FROM room WHERE type LIKE :searchTerm OR persons LIKE :searchTerm;";
+        
+        $stmt = $this->connect()->prepare($query);
+        $search_word = "%" . $search_word . "%";
+        $stmt->bindParam(":searchTerm", $search_word);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        
     }
 }

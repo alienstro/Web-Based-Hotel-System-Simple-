@@ -41,7 +41,7 @@ require_once './includes/customer_view.inc.php';
         </div>
     </nav>
 
-    
+
     <?php
 
     $customer_view = new customer_view();
@@ -50,6 +50,17 @@ require_once './includes/customer_view.inc.php';
 
     ?>
 
+    <footer>
+        <div class="footer_left">
+            <h1 class="mount">MOUNT </h1>
+            <img src="../picture/mounthua.webp" alt="Mount Hua Logo" class="mount_hua_logo">
+            <h1 class="hua_hotel"> HUA HOTEL</h1>
+        </div>
+
+        <div class="footer_bottom">
+            <p>&copy; 2023. All Rights Reserved.</p>
+        </div>
+    </footer>
 
 </body>
 
